@@ -33,8 +33,11 @@ const {
 // < 16
 
 function exponencial(exp) {
+    return function (num) {
+      return Math.pow(num,exp);
+    }
+  }
 
-}
 
 // ----- Recursión -----
 
@@ -139,7 +142,16 @@ OrderedLinkedList.prototype.print = function(){
 // < 'head --> 5 --> 3 --> 1 --> null'
 //               4
 OrderedLinkedList.prototype.add = function(val){
-    
+    if (!this.head){ //SI NO HAY UN HEAD
+        this.head = new Node(val) //EL HEAD VA A SER UN NODO CON EL VALOR Q QUIERAS
+      } else { //SI HAY HEAD
+        current = this.head; 
+        while (current.next){ //MIENTRAS QUE HEAD TENGA UN NEXT
+          current = current.next; //SE CORRE HEAD HACIA -> PARA SABER SI HAY MAS NODOS
+        }
+        current.next=new Node(val); //ENTONCES CURRENT SERA EL ULT NODO. Y CURRENT.NEXT EL NUEVO NODO
+        
+      } 
 }
 
 
@@ -159,7 +171,7 @@ OrderedLinkedList.prototype.add = function(val){
 // < null
 
 OrderedLinkedList.prototype.removeHigher = function(){
-    
+    if(this.head===null){return null}
 }
 
 
@@ -179,7 +191,7 @@ OrderedLinkedList.prototype.removeHigher = function(){
 // < null
 
 OrderedLinkedList.prototype.removeLower = function(){
-    
+    if(this.head===null){return null}
 }
 
 
@@ -231,7 +243,9 @@ function multiCallbacks(cbs1, cbs2){
 // resultado:[5,8,9,32,64]
 
 BinarySearchTree.prototype.toArray = function() {
-    
+    var valores= []
+    var resultado=[]
+
 }
 
 
@@ -261,12 +275,26 @@ function primalityTest(n) {
 
 function quickSort(array) {
     
-}
 // QuickSort ya lo conocen solo que este 
 // ordena de mayor a menor
 // para esto hay que unir como right+mid+left o cambiar el 
 // signo menor en la comparacion con el pivot
+if (array.length<1){
+    return []
+  }
+var pivote = array[0] //primer numero posicionado
+var left= []
+var right=[]
 
+for (var i=1; i<array.length;i++){
+  if (array[i]<pivote){
+    right.push(array[i])  //si es mayor q el pivote, pasa al array right
+  }
+  else{
+    left.push(array[i])//left de lo contrario
+  }
+} return [].concat(quickSort(left),pivote,quickSort(right)) //concatenar en un array
+}
 
 
 
