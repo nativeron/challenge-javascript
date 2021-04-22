@@ -91,7 +91,20 @@ function direcciones(laberinto) {
 // deepEqualArrays([0,1,[[0,1,2],1,2]], [0,1,[[0,1,2],1,2]]) => true
 
 function deepEqualArrays(arr1, arr2) {
-
+  for(let i = 0; i<arr1.length; i++){
+    for (let j=0; j<arr2.length;j++){
+     if (arr1[i] === arr2[j] && typeof arr1[i] === typeof arr2[j] && arr1.length === arr2.length){return true } else {return false}
+     
+    }
+    // me pregunto si el elemento en el cual estoy parado es o no un arreglo 
+    // si es un arreglo, necesiti volver a iterar 
+    // ¿como lo hago? me vuelvo a llamar, pero ahora con este nuevo arreglo
+    /* if(Array.isArray(array[i])){
+      arrayLogging(array[i]); 
+    }else{
+      console.log(array[i]); 
+    } */
+  }
 }
 
 
@@ -171,7 +184,18 @@ OrderedLinkedList.prototype.add = function(val){
 // < null
 
 OrderedLinkedList.prototype.removeHigher = function(){
-    if(this.head===null){return null}
+  let current=this.head; //CURRENT SERA THIS HEAD
+  if(!current) { return null; } //SI NO HAY HEAD RETURN NULL
+  if (!current.next){ //SI NO HAY CURRENT NEXT O SEA SI ES EL ULT NODO
+    var deleted=current//VARIABLE BORRADO SERA CURRENT (EL ULT)
+    this.head=null//HEAD SERA NULL
+    return deleted.value//RETORNAR EL VALOR DE VAR BORRADO
+  }
+  while (current.next.next !==null){ //SI EL SIGUIENTE DEL SIGUENTE NO ES NULL
+    current=current.next//THIS HEAD VA A SER THIS HEAD NEXT
+  } var removed=current.next//VAR REMOVED SERA CURRENT.NEXT.NEXT
+  current.next=null //SERA NULL
+  return removed.value //RETORNAR VALOR
 }
 
 
@@ -191,7 +215,18 @@ OrderedLinkedList.prototype.removeHigher = function(){
 // < null
 
 OrderedLinkedList.prototype.removeLower = function(){
-    if(this.head===null){return null}
+        let current=this.head; //CURRENT SERA THIS HEAD
+  if(!current) { return null; } //SI NO HAY HEAD RETURN NULL
+  if (!current.next){ //SI NO HAY CURRENT NEXT O SEA SI ES EL ULT NODO
+    var deleted=current//VARIABLE BORRADO SERA CURRENT (EL ULT)
+    this.head=null//HEAD SERA NULL
+    return deleted.value//RETORNAR EL VALOR DE VAR BORRADO
+  }
+  while (current.next.next !==null){ //SI EL SIGUIENTE DEL SIGUENTE NO ES NULL
+    current=current.next//THIS HEAD VA A SER THIS HEAD NEXT
+  } var removed=current.next//VAR REMOVED SERA CURRENT.NEXT.NEXT
+  current.next=null //SERA NULL
+  return removed.value //RETORNAR VALOR
 }
 
 
@@ -234,8 +269,8 @@ function multiCallbacks(cbs1, cbs2){
 // EJERCICIO 8
 // Implementar el metodo 'toArray' en el prototype del BinarySearchTree
 // que devuelva los valores del arbol en una array ordenado
-// Ejemplo:
-//     32
+// Ejemplo: 
+//     32 
 //    /  \
 //   8   64
 //  / \
@@ -263,9 +298,16 @@ BinarySearchTree.prototype.toArray = function() {
 // Si bien esta no es la mejor implementacion existente, con que uds puedan 
 // informarse sobre algoritmos, leerlos de un pseudocodigo e implemnterlos alcanzara
 
-function primalityTest(n) {
-    
-}
+ function primalityTest(n) {
+  if( n < 2) return false;
+  if(n === 2) return true;
+  for(var i = 2; i < n; i++) {
+    if(n % i === 0) {
+      return false;
+    }
+  }
+  return true
+} 
 
 
 // EJERCICIO 10
@@ -311,8 +353,13 @@ for (var i=1; i<array.length;i++){
 // < 32859
 
 function reverse(num){
-    
+  var resultado=0
+  for (i = num.length; i < 0; i--) {
+   resultado=resultado+num
+  }
+  return resultado;
 }
+
 // la grandiosa resolucion de Wilson!!!
 // declaran una variable donde 
 // almacenar el el numero invertido
