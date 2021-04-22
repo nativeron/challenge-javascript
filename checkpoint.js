@@ -72,8 +72,15 @@ function exponencial(exp) {
 // haciendo los movimientos SUR->ESTE->NORTE
 // Aclaraciones: el segundo parametro que recibe la funcion ('direccion') puede ser pasado vacio (null)
 
-function direcciones(laberinto) {
-
+function direcciones(laberinto, direccion = "") {
+  for (const key in laberinto) {
+      if (laberinto[key] == "destino") {
+          return direccion + key 
+      } else if (typeof laberinto[key] === "object") {
+          return direcciones(laberinto[key], direccion + key);
+      }
+  }
+  return "";
 }
 
 
@@ -126,6 +133,7 @@ function OrderedLinkedList() {
 // notar que Node esta implementado en el archivo DS
 
 // Y el metodo print que permite visualizar la lista:
+
 OrderedLinkedList.prototype.print = function(){
     let print = 'head'
     let pointer = this.head
@@ -186,16 +194,16 @@ OrderedLinkedList.prototype.add = function(val){
 OrderedLinkedList.prototype.removeHigher = function(){
   let current=this.head; //CURRENT SERA THIS HEAD
   if(!current) { return null; } //SI NO HAY HEAD RETURN NULL
-  if (!current.next){ //SI NO HAY CURRENT NEXT O SEA SI ES EL ULT NODO
-    var deleted=current//VARIABLE BORRADO SERA CURRENT (EL ULT)
-    this.head=null//HEAD SERA NULL
-    return deleted.value//RETORNAR EL VALOR DE VAR BORRADO
-  }
-  while (current.next.next !==null){ //SI EL SIGUIENTE DEL SIGUENTE NO ES NULL
+ 
+  while (current <current.next){ //SI EL SIGUIENTE DEL SIGUENTE NO ES NULL
     current=current.next//THIS HEAD VA A SER THIS HEAD NEXT
-  } var removed=current.next//VAR REMOVED SERA CURRENT.NEXT.NEXT
-  current.next=null //SERA NULL
-  return removed.value //RETORNAR VALOR
+  var removed=current//VAR REMOVED SERA CURRENT.NEXT.NEXT
+  current=null //SERA NULL
+  return removed.value}
+  while (current >current.next){ //SI EL SIGUIENTE DEL SIGUENTE NO ES NULL//THIS HEAD VA A SER THIS HEAD NEXT
+  var removed=current//VAR REMOVED SERA CURRENT.NEXT.NEXT
+  current=null //SERA NULL
+  return removed.value} //RETORNAR VALOR
 }
 
 
@@ -277,10 +285,14 @@ function multiCallbacks(cbs1, cbs2){
 // 5   9
 // resultado:[5,8,9,32,64]
 
-BinarySearchTree.prototype.toArray = function() {
-    var valores= []
-    var resultado=[]
-
+BinarySearchTree.prototype.toArray = function(array = []) { //RECORRE EL ARBOL EN NIVELES
+  if(this.left) array.push(this.left)  //SI TIENE LEFT. PUSHEAR EN ARRAY
+  if(this.right) array.push(this.right) // SI TIENE RIGHT, PUSHEAR TAMBIEN
+  (this.value) //CB A THIS VALUE
+  if(array.length > 0) {//SI EL ARRAY ES MAYOR QUE CERO O SEA SI HAY AL MENOS UN VALUE
+    var siguienteNodo = array.shift();//SHIFT=REMOVE EL PRIMER ITEM DEL ARRAY
+    siguienteNodo.toArray(array)//LO REMUEVE Y EMPIEZA LA FUNCION DE NUEVO
+  }
 }
 
 
